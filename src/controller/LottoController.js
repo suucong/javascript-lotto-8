@@ -1,7 +1,8 @@
 import LottoService from "../service/LottoService.js";
-import Validator from "../util/Validator.js";
 import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
+import InputHandler from "../utils/InputHandler.js";
+import Validator from "../utils/Validator.js";
 
 class LottoController {
   async run() {
@@ -10,34 +11,24 @@ class LottoController {
     let winningNumbers = await this.#readWinningNumbersWithRetry();
   }
 
+  async #readPurchaseAmountWithRetry() {
+    return InputHandler.readWithRetry(
+      InputView.readPurchaseAmount,
+      Validator.validatePurchaseAmount
+    );
+  }
+
+  async #readWinningNumbersWithRetry() {
+    return InputHandler.readWithRetry(
+      InputView.readWinningNumbers,
+      Validator.validateWinningNumbers
+    );
+  }
+
   #generateAndPrintLottos(purchaseAmount) {
     const lottos = LottoService.generateLottos(purchaseAmount);
 
     OutputView.printLottos(lottos);
-  }
-
-  async #readPurchaseAmountWithRetry() {
-    while (true) {
-      try {
-        const inputString = await InputView.readPurchaseAmount();
-        Validator.validatePurchaseAmount(inputString);
-
-        return Number(inputString);
-      } catch (error) {
-        OutputView.printError(error.message);
-      }
-    }
-  }
-
-  async #readWinningNumbersWithRetry() {
-    while (true) {
-      try {
-        const inputString = await InputView.readWinningNumbers();
-        return inputString;
-      } catch (error) {
-        OutputView.printError(error.message);
-      }
-    }
   }
 }
 

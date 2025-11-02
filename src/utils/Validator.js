@@ -16,7 +16,11 @@ class Validator {
     if (amount % LOTTO.PRICE !== 0) {
       throw new Error(ERROR.INVALID_AMOUNT_UNIT);
     }
+
+    return amount;
   }
+
+  static validateWinningNumbers(input) {}
 }
 
 export default Validator;
