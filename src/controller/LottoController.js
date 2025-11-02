@@ -7,6 +7,7 @@ class LottoController {
   async run() {
     let purchaseAmount = await this.#readPurchaseAmountWithRetry();
     this.#generateAndPrintLottos(purchaseAmount);
+    let winningNumbers = await this.#readWinningNumbersWithRetry();
   }
 
   #generateAndPrintLottos(purchaseAmount) {
@@ -22,6 +23,17 @@ class LottoController {
         Validator.validatePurchaseAmount(inputString);
 
         return Number(inputString);
+      } catch (error) {
+        OutputView.printError(error.message);
+      }
+    }
+  }
+
+  async #readWinningNumbersWithRetry() {
+    while (true) {
+      try {
+        const inputString = await InputView.readWinningNumbers();
+        return inputString;
       } catch (error) {
         OutputView.printError(error.message);
       }
