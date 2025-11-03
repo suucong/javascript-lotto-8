@@ -6,7 +6,7 @@ class InputHandler {
       try {
         const input = await readFn();
 
-        getFn(input);
+        return getFn(input);
       } catch (error) {
         OutputView.printError(error.message);
       }
