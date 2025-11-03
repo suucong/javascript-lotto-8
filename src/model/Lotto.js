@@ -1,4 +1,6 @@
+import { LOTTO } from "../constants/LottoConstants.js";
 import { ERROR } from "../constants/Messages.js";
+import { isDuplicateArray, isNotLottoRange } from "../utils/ValidatorHelper.js";
 
 class Lotto {
   #numbers;
@@ -9,16 +11,15 @@ class Lotto {
   }
 
   #validate(numbers) {
-    if (numbers.length !== 6) {
+    if (numbers.length !== LOTTO.COUNT) {
       throw new Error(ERROR.INVALID_COUNT);
     }
 
-    if (new Set(numbers).size !== 6) {
+    if (isDuplicateArray(numbers)) {
       throw new Error(ERROR.DUPLICATE_NUMBERS);
     }
 
-    const isValidRange = numbers.every((number) => number >= 1 && number <= 45);
-    if (!isValidRange) {
+    if (numbers.some((number) => isNotLottoRange(number))) {
       throw new Error(ERROR.INVALID_RANGE);
     }
   }
