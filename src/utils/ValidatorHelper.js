@@ -1,7 +1,7 @@
 import { LOTTO } from "../constants/LottoConstants.js";
 
-export const isNotNumberFormat = (inputString) => {
-  return Number.isNaN(inputString.trim());
+export const isNotNumber = (purchaseAmount) => {
+  return Number.isNaN(purchaseAmount);
 };
 
 export const isNotLottoRange = (number) => {
