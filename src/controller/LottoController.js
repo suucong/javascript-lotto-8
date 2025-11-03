@@ -5,6 +5,7 @@ import InputHandler from "../utils/InputHandler.js";
 import Validator from "../utils/Validator.js";
 import PurchaseAmountValidator from "../utils/PurchaseAmountValidator.js";
 import WinningNumbersValidator from "../utils/WinningNumbersValidator.js";
+import BonusNumberValidator from "../utils/BonusNumberValidator.js";
 
 class LottoController {
   async run() {
@@ -30,7 +31,7 @@ class LottoController {
 
   async #readBonusNumberWithRetry(winningNumbers) {
     const validateJob = (inputString) => {
-      return Validator.validateBonusNumber(inputString, winningNumbers);
+      return BonusNumberValidator.validate(inputString, winningNumbers);
     };
 
     return InputHandler.readWithRetry(InputView.readBonusNumber, validateJob);
