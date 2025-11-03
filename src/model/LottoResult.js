@@ -1,4 +1,5 @@
 import { WINNING_AMOUNTS } from "../constants/LottoConstants.js";
+import { RANK_ORDER } from "../constants/Messages.js";
 
 class LottoResult {
   #lottos;
@@ -10,19 +11,16 @@ class LottoResult {
     this.#winningLotto = winningLotto;
   }
 
-  // 일치 결과에 따른 등수 키를 결정
   #determineRank({ matchCount, hasBonus }) {
-    if (matchCount === 6) return "FIRST";
-    if (matchCount === 5) {
-      if (hasBonus) return "SECOND";
-      return "THIRD";
-    }
-    if (matchCount === 4) return "FOURTH";
-    if (matchCount === 3) return "FIFTH";
+    const rank = RANK_ORDER.find(
+      (r) => r.match === matchCount && r.hasBonus === hasBonus
+    );
+
+    if (rank) return rank.key;
+
     return "NONE";
   }
 
-  // 전체 로또 순회하며 결과 집계
   calculateStats() {
     this.#lottos.forEach((lotto) => {
       const result = this.#winningLotto.compare(lotto);

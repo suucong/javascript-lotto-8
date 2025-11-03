@@ -77,21 +77,19 @@ class LottoController {
     return bonusNumber;
   }
 
+  // 당첨 결과 확인 및 출력
   #calculateAndPrintResults(
     lottos,
     winningNumbers,
     bonusNumber,
     purchaseAmount
   ) {
-    // 1. WinningLotto 객체 생성 (당첨 기준)
     const winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
-    // 2. LottoResult 객체 생성 및 통계 계산
     const lottoResult = new LottoResult(lottos, winningLotto);
-    const stats = lottoResult.calculateStats(); // 등수별 개수 집계
+    const stats = lottoResult.calculateStats();
 
-    // 3. OutputView를 통해 최종 결과 출력
-    const profitRate = lottoResult.calculateProfitRate(purchaseAmount); // 수익률 계산
+    const profitRate = lottoResult.calculateProfitRate(purchaseAmount);
     OutputView.printResults(stats, profitRate);
   }
 }
