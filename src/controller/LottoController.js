@@ -3,6 +3,7 @@ import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
 import InputHandler from "../utils/InputHandler.js";
 import Validator from "../utils/Validator.js";
+import PurchaseAmountValidator from "../utils/PurchaseAmountValidator.js";
 
 class LottoController {
   async run() {
@@ -15,7 +16,7 @@ class LottoController {
   async #readPurchaseAmountWithRetry() {
     return InputHandler.readWithRetry(
       InputView.readPurchaseAmount,
-      Validator.validatePurchaseAmount
+      PurchaseAmountValidator.validate
     );
   }
 

@@ -3,24 +3,6 @@ import { ERROR } from "../constants/Messages.js";
 import { parseWinningNumbers } from "./Parser.js";
 
 class Validator {
-  static validatePurchaseAmount(input) {
-    const amount = Number(input);
-
-    if (Number.isNaN(amount)) {
-      throw new Error(ERROR.INVALID_AMOUNT_NOT_NUMBER);
-    }
-
-    if (amount < LOTTO.PRICE) {
-      throw new Error(ERROR.INVALID_AMOUNT_BELOW_MIN);
-    }
-
-    if (amount % LOTTO.PRICE !== 0) {
-      throw new Error(ERROR.INVALID_AMOUNT_UNIT);
-    }
-
-    return amount;
-  }
-
   static validateWinningNumbers(input) {
     const numbers = parseWinningNumbers(input);
 
@@ -46,7 +28,7 @@ class Validator {
   static validateBonusNumber(input, winningNumbers) {
     const bonusNumber = Number(input);
 
-    if (input.trim() === "" || Number.isNaN(bonusNumber)) {
+    if (Validator.isNotNumberFormat(input)) {
       throw new Error(ERROR.BONUS_NOT_NUMBER);
     }
 
@@ -60,6 +42,16 @@ class Validator {
 
     return bonusNumber;
   }
+
+  static isNotNumberFormat(inputString) {
+    return Number.isNaN(inputString.trim());
+  }
+
+  static isNotLottoRange(inputString) {
+    return bonusNumber < LOTTO.MIN_NUMBER || bonusNumber > LOTTO.MAX_NUMBER;
+  }
+
+  // static isUniqueArray(inpur)
 }
 
 export default Validator;
