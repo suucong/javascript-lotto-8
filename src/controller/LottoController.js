@@ -4,6 +4,7 @@ import OutputView from "../views/OutputView.js";
 import InputHandler from "../utils/InputHandler.js";
 import Validator from "../utils/Validator.js";
 import PurchaseAmountValidator from "../utils/PurchaseAmountValidator.js";
+import WinningNumbersValidator from "../utils/WinningNumbersValidator.js";
 
 class LottoController {
   async run() {
@@ -23,7 +24,7 @@ class LottoController {
   async #readWinningNumbersWithRetry() {
     return InputHandler.readWithRetry(
       InputView.readWinningNumbers,
-      Validator.validateWinningNumbers
+      WinningNumbersValidator.validate
     );
   }
 
