@@ -2,10 +2,9 @@ import LottoService from "../service/LottoService.js";
 import InputView from "../views/InputView.js";
 import OutputView from "../views/OutputView.js";
 import InputHandler from "../utils/InputHandler.js";
-import Validator from "../utils/Validator.js";
-import PurchaseAmountValidator from "../utils/PurchaseAmountValidator.js";
-import WinningNumbersValidator from "../utils/WinningNumbersValidator.js";
-import BonusNumberValidator from "../utils/BonusNumberValidator.js";
+import PurchaseAmountValidator from "../validator/PurchaseAmountValidator.js";
+import WinningNumbersValidator from "../validator/WinningNumbersValidator.js";
+import BonusNumberValidator from "../validator/BonusNumberValidator.js";
 
 class LottoController {
   async run() {
