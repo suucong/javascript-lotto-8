@@ -13,4 +13,5 @@ export const WINNING_AMOUNTS = Object.freeze({
   THIRD: 1500000,
   FOURTH: 50000,
   FIFTH: 5000,
+  NONE: 0,
 });

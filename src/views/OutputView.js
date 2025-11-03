@@ -1,5 +1,7 @@
 import { Console } from "@woowacourse/mission-utils";
-import { OUTPUT } from "../constants/Messages.js";
+import { WINNING_AMOUNTS } from "../constants/LottoConstants.js";
+import { OUTPUT, RANK_ORDER } from "../constants/Messages.js";
+import LottoResult from "../model/LottoResult.js";
 
 class OutputView {
   static printError(message) {
@@ -13,6 +15,23 @@ class OutputView {
     lottos.forEach((lotto) => {
       Console.print(`[${lotto.getNumbers().join(", ")}]`);
     });
+  }
+
+  static printResults(stats, profitRate) {
+    Console.print(OUTPUT.STATS_HEADER);
+
+    RANK_ORDER.forEach((rankInfo) => {
+      const matchCount = rankInfo.match;
+
+      const rankKey = rankInfo.key;
+      const prize = WINNING_AMOUNTS[rankKey];
+      const count = stats[rankKey];
+      const hasBonus = rankInfo.hasBonus;
+
+      Console.print(OUTPUT.RANK_FORMAT(matchCount, prize, count, hasBonus));
+    });
+
+    Console.print(OUTPUT.PROFIT_RATE(profitRate));
   }
 }
 
