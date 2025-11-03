@@ -1,7 +1,7 @@
 import { ERROR } from "../constants/Messages.js";
 
 export const parseWinningNumbers = (inputString) => {
-  const rawNumbers = inputString.split(",");
+  const rawNumbers = inputString.trim().split(",");
 
   const numbers = rawNumbers.map((numberString) => {
     const trimmed = numberString.trim();

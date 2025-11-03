@@ -1,23 +1,19 @@
-import { isNotNumberFormat } from "../utils/ValidatorHelper.js";
+import { isNotNumber } from "../utils/ValidatorHelper.js";
 import { LOTTO } from "../constants/LottoConstants.js";
 
 class PurchaseAmountValidator {
-  static validate(inputString) {
-    const amount = Number(inputString);
-
-    if (isNotNumberFormat(inputString)) {
+  static validate(purchaseAmount) {
+    if (isNotNumber(purchaseAmount)) {
       throw new Error(ERROR.INVALID_AMOUNT_NOT_NUMBER);
     }
 
-    if (amount < LOTTO.PRICE) {
+    if (purchaseAmount < LOTTO.PRICE) {
       throw new Error(ERROR.INVALID_AMOUNT_BELOW_MIN);
     }
 
-    if (amount % LOTTO.PRICE !== 0) {
+    if (purchaseAmount % LOTTO.PRICE !== 0) {
       throw new Error(ERROR.INVALID_AMOUNT_UNIT);
     }
-
-    return amount;
   }
 }
 

@@ -1,14 +1,9 @@
-import {
-  isNotNumberFormat,
-  isNotLottoRange,
-} from "../utils/ValidatorHelper.js";
+import { isNotNumber, isNotLottoRange } from "../utils/ValidatorHelper.js";
 import { ERROR } from "../constants/Messages.js";
 
 class BonusNumberValidator {
-  static validate(inputString, winningNumbers) {
-    const bonusNumber = Number(inputString);
-
-    if (isNotNumberFormat(inputString)) {
+  static validate(bonusNumber, winningNumbers) {
+    if (isNotNumber(bonusNumber)) {
       throw new Error(ERROR.BONUS_NOT_NUMBER);
     }
 
@@ -19,8 +14,6 @@ class BonusNumberValidator {
     if (winningNumbers.includes(bonusNumber)) {
       throw new Error(ERROR.BONUS_DUPLICATE_WINNING);
     }
-
-    return bonusNumber;
   }
 }
 
