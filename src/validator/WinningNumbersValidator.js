@@ -1,6 +1,6 @@
 import { ERROR } from "../constants/Messages.js";
 import { LOTTO } from "../constants/LottoConstants.js";
-import { parseWinningNumbers } from "./Parser.js";
+import { parseWinningNumbers } from "../utils/Parser.js";
 
 class WinningNumbersValidator {
   static validate(inputString) {
