@@ -6,7 +6,25 @@ export const PROMPT = Object.freeze({
 
 export const OUTPUT = Object.freeze({
   PURCHASE_COUNT_SUFFIX: "개를 구매했습니다.",
+
+  STATS_HEADER: "\n당첨 통계\n---",
+  PROFIT_RATE: (rate) => `총 수익률은 ${rate}%입니다.`,
+
+  RANK_FORMAT: (match, amount, count, hasBonus) => {
+    let bonusText = "";
+    if (hasBonus) bonusText = ", 보너스 볼 일치";
+    const formattedAmount = amount.toLocaleString("ko-KR");
+    return `${match}개 일치${bonusText} (${formattedAmount}원) - ${count}개`;
+  },
 });
+
+export const RANK_ORDER = Object.freeze([
+  { key: "FIFTH", match: 3, hasBonus: false },
+  { key: "FOURTH", match: 4, hasBonus: false },
+  { key: "THIRD", match: 5, hasBonus: false },
+  { key: "SECOND", match: 5, hasBonus: true },
+  { key: "FIRST", match: 6, hasBonus: false },
+]);
 
 const ERROR_PREFIX = "[ERROR]";
 
