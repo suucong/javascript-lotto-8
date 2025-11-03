@@ -1,7 +1,8 @@
+import { LOTTO } from "../constants/LottoConstants.js";
 import { ERROR } from "../constants/Messages.js";
 
 export const parseWinningNumbers = (inputString) => {
-  const rawNumbers = inputString.trim().split(",");
+  const rawNumbers = inputString.trim().split(LOTTO.DELIMITER);
 
   const numbers = rawNumbers.map((numberString) => {
     const trimmed = numberString.trim();
