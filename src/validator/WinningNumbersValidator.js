@@ -1,6 +1,7 @@
 import { ERROR } from "../constants/Messages.js";
 import { LOTTO } from "../constants/LottoConstants.js";
 import { parseWinningNumbers } from "../utils/Parser.js";
+import { isDuplicateArray, isNotLottoRange } from "../utils/ValidatorHelper.js";
 
 class WinningNumbersValidator {
   static validate(inputString) {
@@ -10,15 +11,11 @@ class WinningNumbersValidator {
       throw new Error(ERROR.WINNING_INVALID_COUNT);
     }
 
-    const isOutOfRange = numbers.some(
-      (number) => number < LOTTO.MIN_NUMBER || number > LOTTO.MAX_NUMBER
-    );
-    if (isOutOfRange) {
+    if (numbers.some((number) => isNotLottoRange(number))) {
       throw new Error(ERROR.WINNING_INVALID_RANGE);
     }
 
-    const uniqueNumbers = new Set(numbers);
-    if (uniqueNumbers.size !== numbers.length) {
+    if (isDuplicateArray(numbers)) {
       throw new Error(ERROR.WINNING_DUPLICATE_NUMBERS);
     }
 

@@ -1,11 +1,11 @@
-import Validator from "./Validator.js";
+import { isNotNumberFormat } from "../utils/ValidatorHelper.js";
 import { LOTTO } from "../constants/LottoConstants.js";
 
 class PurchaseAmountValidator {
   static validate(inputString) {
     const amount = Number(inputString);
 
-    if (Validator.isNotNumberFormat(inputString)) {
+    if (isNotNumberFormat(inputString)) {
       throw new Error(ERROR.INVALID_AMOUNT_NOT_NUMBER);
     }
 
