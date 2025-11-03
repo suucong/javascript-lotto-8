@@ -11,6 +11,11 @@ class InputView {
     const input = await Console.readLineAsync(PROMPT.WINNING_NUMBERS);
     return input;
   }
+
+  static async readBonusNumber() {
+    const input = await Console.readLineAsync(PROMPT.BONUS_NUMBER);
+    return input;
+  }
 }
 
 export default InputView;
