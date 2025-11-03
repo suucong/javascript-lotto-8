@@ -1,4 +1,5 @@
 import { isNotNumber } from "../utils/ValidatorHelper.js";
+import { ERROR } from "../constants/Messages.js";
 import { LOTTO } from "../constants/LottoConstants.js";
 
 class PurchaseAmountValidator {
