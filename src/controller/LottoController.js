@@ -74,9 +74,9 @@ class LottoController {
     );
   }
 
-  #getBonusNumber(inputString, winningNumbers) {
+  #getBonusNumber(inputString) {
     const bonusNumber = Number(inputString.trim());
-    BonusNumberValidator.validate(bonusNumber, winningNumbers);
+    BonusNumberValidator.validate(bonusNumber);
 
     return bonusNumber;
   }
