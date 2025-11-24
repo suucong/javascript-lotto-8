@@ -60,10 +60,6 @@ class LottoController {
     return purchaseAmount;
   }
 
-  #generateLottos(purchaseAmount) {
-    return LottoService.generateLottos(purchaseAmount);
-  }
-
   #printLottos(lottos) {
     OutputView.printLottos(lottos);
   }
