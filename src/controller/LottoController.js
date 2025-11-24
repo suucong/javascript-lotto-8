@@ -11,14 +11,27 @@ import LottoResult from "../model/LottoResult.js";
 
 class LottoController {
   async run() {
-    let purchaseAmount = await this.#readPurchaseAmountWithRetry();
-    let lottos = this.#generateLottos(purchaseAmount);
+    const { lottos, purchaseAmount } = await this.#handleLottoPurchase();
+    const winningLotto = await this.#handleWinningLotto();
+    this.#handleResult(lottos, purchaseAmount, winningLotto);
+  }
+
+  async #handleLottoPurchase() {
+    const purchaseAmount = await this.#readPurchaseAmountWithRetry();
+    const lottos = this.#generateLottos(purchaseAmount);
     this.#printLottos(lottos);
 
-    let winningNumbers = await this.#readWinningNumbersWithRetry();
-    let bonusNumber = await this.#readBonusNumberWithRetry(winningNumbers);
-    const winningLotto = new WinningLotto(winningNumbers, bonusNumber);
+    return { lottos, purchaseAmount };
+  }
 
+  async #handleWinningLotto() {
+    const winningNumbers = await this.#readWinningNumbersWithRetry();
+    const bonusNumber = await this.#readBonusNumberWithRetry();
+
+    return new WinningLotto(winningNumbers, bonusNumber);
+  }
+
+  #handleResult(lottos, purchaseAmount, winningLotto) {
     const { stats, profitRate } = this.#calculateResults(
       lottos,
       purchaseAmount,
@@ -27,7 +40,6 @@ class LottoController {
     this.#printResults(stats, profitRate);
   }
 
-  // 구매 금액 입력 받기
   async #readPurchaseAmountWithRetry() {
     return InputHandler.readWithRetry(
       InputView.readPurchaseAmount,
@@ -42,7 +54,6 @@ class LottoController {
     return purchaseAmount;
   }
 
-  // 입력 받은 구매 금액만큼 로또 발행
   #generateLottos(purchaseAmount) {
     return LottoService.generateLottos(purchaseAmount);
   }
@@ -51,7 +62,6 @@ class LottoController {
     OutputView.printLottos(lottos);
   }
 
-  // 당첨 번호 입력 받기
   async #readWinningNumbersWithRetry() {
     return InputHandler.readWithRetry(
       InputView.readWinningNumbers,
@@ -66,11 +76,10 @@ class LottoController {
     return winningNumbers;
   }
 
-  // 보너스 번호 입력 받기
-  async #readBonusNumberWithRetry(winningNumbers) {
+  async #readBonusNumberWithRetry() {
     return InputHandler.readWithRetry(
       InputView.readBonusNumber,
-      (inputString) => this.#getBonusNumber(inputString, winningNumbers)
+      (inputString) => this.#getBonusNumber(inputString)
     );
   }
 
@@ -81,7 +90,6 @@ class LottoController {
     return bonusNumber;
   }
 
-  // 당첨 결과 확인 및 출력
   #calculateResults(lottos, purchaseAmount, winningLotto) {
     const lottoResult = new LottoResult(lottos, winningLotto);
     const stats = lottoResult.calculateStats();
