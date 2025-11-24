@@ -27,6 +27,16 @@ class Lotto {
   getNumbers() {
     return this.#numbers;
   }
+
+  includes(number) {
+    return this.#numbers.includes(number);
+  }
+
+  countMatch(winningLotto) {
+    const winningNumbers = winningLotto.getNumbers();
+    return this.#numbers.filter((number) => winningNumbers.includes(number))
+      .length;
+  }
 }
 
 export default Lotto;
