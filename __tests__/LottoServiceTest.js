@@ -3,7 +3,10 @@ import { LOTTO } from "../src/constants/LottoConstants.js";
 import Lotto from "../src/model/Lotto.js";
 
 describe("LottoService 로또 발행 기능 테스트", () => {
+  let lottoService;
+
   beforeEach(() => {
+    lottoService = new LottoService();
     jest.restoreAllMocks();
   });
 
@@ -13,7 +16,7 @@ describe("LottoService 로또 발행 기능 테스트", () => {
     const expectedCount = purchaseAmount / LOTTO.PRICE;
 
     // when
-    const lottos = LottoService.generateLottos(purchaseAmount);
+    const lottos = lottoService.generateLottos(purchaseAmount);
 
     // then
     expect(lottos).toHaveLength(expectedCount);
