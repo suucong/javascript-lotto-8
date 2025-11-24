@@ -14,15 +14,17 @@ class LottoController {
     let purchaseAmount = await this.#readPurchaseAmountWithRetry();
     let lottos = this.#generateLottos(purchaseAmount);
     this.#printLottos(lottos);
+
     let winningNumbers = await this.#readWinningNumbersWithRetry();
     let bonusNumber = await this.#readBonusNumberWithRetry(winningNumbers);
+    const winningLotto = new WinningLotto(winningNumbers, bonusNumber);
 
-    this.#calculateAndPrintResults(
+    const { stats, profitRate } = this.#calculateResults(
       lottos,
-      winningNumbers,
-      bonusNumber,
-      purchaseAmount
+      purchaseAmount,
+      winningLotto
     );
+    this.#printResults(stats, profitRate);
   }
 
   // 구매 금액 입력 받기
@@ -80,18 +82,15 @@ class LottoController {
   }
 
   // 당첨 결과 확인 및 출력
-  #calculateAndPrintResults(
-    lottos,
-    winningNumbers,
-    bonusNumber,
-    purchaseAmount
-  ) {
-    const winningLotto = new WinningLotto(winningNumbers, bonusNumber);
-
+  #calculateResults(lottos, purchaseAmount, winningLotto) {
     const lottoResult = new LottoResult(lottos, winningLotto);
     const stats = lottoResult.calculateStats();
-
     const profitRate = lottoResult.calculateProfitRate(purchaseAmount);
+
+    return { stats, profitRate };
+  }
+
+  #printResults(stats, profitRate) {
     OutputView.printResults(stats, profitRate);
   }
 }
