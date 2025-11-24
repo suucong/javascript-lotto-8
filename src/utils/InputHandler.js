@@ -1,14 +1,20 @@
 import OutputView from "../views/OutputView.js";
 
 class InputHandler {
-  static async readWithRetry(readFn, getFn) {
+  #outputView;
+
+  constructor(outputView) {
+    this.#outputView = outputView;
+  }
+
+  async readWithRetry(readFn, getFn) {
     while (true) {
       try {
         const input = await readFn();
 
         return getFn(input);
       } catch (error) {
-        OutputView.printError(error.message);
+        this.#outputView.printError(error.message);
       }
     }
   }

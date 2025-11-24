@@ -11,9 +11,13 @@ import LottoResult from "../model/LottoResult.js";
 
 class LottoController {
   #lottoService;
+  #inputHandler;
+  #outputView;
 
   constructor() {
     this.#lottoService = new LottoService();
+    this.#outputView = new OutputView();
+    this.#inputHandler = new InputHandler(this.#outputView);
   }
 
   async run() {
@@ -47,7 +51,7 @@ class LottoController {
   }
 
   async #readPurchaseAmountWithRetry() {
-    return InputHandler.readWithRetry(
+    return this.#inputHandler.readWithRetry(
       InputView.readPurchaseAmount,
       (inputString) => this.#getPurchaseAmount(inputString)
     );
@@ -61,11 +65,11 @@ class LottoController {
   }
 
   #printLottos(lottos) {
-    OutputView.printLottos(lottos);
+    this.#outputView.printLottos(lottos);
   }
 
   async #readWinningNumbersWithRetry() {
-    return InputHandler.readWithRetry(
+    return this.#inputHandler.readWithRetry(
       InputView.readWinningNumbers,
       (inputString) => this.#getWinningNumbers(inputString)
     );
@@ -79,7 +83,7 @@ class LottoController {
   }
 
   async #readBonusNumberWithRetry() {
-    return InputHandler.readWithRetry(
+    return this.#inputHandler.readWithRetry(
       InputView.readBonusNumber,
       (inputString) => this.#getBonusNumber(inputString)
     );
@@ -101,7 +105,7 @@ class LottoController {
   }
 
   #printResults(stats, profitRate) {
-    OutputView.printResults(stats, profitRate);
+    this.#outputView.printResults(stats, profitRate);
   }
 }
 

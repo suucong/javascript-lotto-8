@@ -4,11 +4,11 @@ import { OUTPUT, RANK_ORDER } from "../constants/Messages.js";
 import LottoResult from "../model/LottoResult.js";
 
 class OutputView {
-  static printError(message) {
+  printError(message) {
     Console.print(message);
   }
 
-  static printLottos(lottos) {
+  printLottos(lottos) {
     const count = lottos.length;
     Console.print(`\n${count}${OUTPUT.PURCHASE_COUNT_SUFFIX}`);
 
@@ -17,7 +17,7 @@ class OutputView {
     });
   }
 
-  static printResults(stats, profitRate) {
+  printResults(stats, profitRate) {
     Console.print(OUTPUT.STATS_HEADER);
 
     RANK_ORDER.forEach((rankInfo) => {
