@@ -94,4 +94,34 @@ describe("로또 테스트", () => {
   test("예외 테스트", async () => {
     await runException("1000j");
   });
+
+  test("예외 발생 시 다시 입력받고 정상 종료된다.", async () => {
+    // given
+    const logSpy = getLogSpy();
+
+    mockRandoms([
+      [10, 11, 12, 13, 14, 15],
+      [20, 21, 22, 23, 24, 25],
+    ]);
+
+    mockQuestions([
+      "1000j", // 예외 발생
+      "2000", // 재입력으로 정상 진행
+      "1,2,3,4,5,6",
+      "7",
+    ]);
+
+    // when
+    const app = new App();
+    await app.run();
+
+    // then
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("[ERROR]"));
+
+    expect(logSpy).toHaveBeenCalledWith(
+      expect.stringContaining("2개를 구매했습니다.")
+    );
+
+    expect(logSpy).toHaveBeenCalledWith(expect.stringContaining("총 수익률은"));
+  });
 });
