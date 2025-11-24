@@ -10,6 +10,12 @@ import WinningLotto from "../model/WinningLotto.js";
 import LottoResult from "../model/LottoResult.js";
 
 class LottoController {
+  #lottoService;
+
+  constructor() {
+    this.#lottoService = new LottoService();
+  }
+
   async run() {
     const { lottos, purchaseAmount } = await this.#handleLottoPurchase();
     const winningLotto = await this.#handleWinningLotto();
@@ -18,7 +24,7 @@ class LottoController {
 
   async #handleLottoPurchase() {
     const purchaseAmount = await this.#readPurchaseAmountWithRetry();
-    const lottos = this.#generateLottos(purchaseAmount);
+    const lottos = this.#lottoService.generateLottos(purchaseAmount);
     this.#printLottos(lottos);
 
     return { lottos, purchaseAmount };
