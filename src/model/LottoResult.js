@@ -23,8 +23,10 @@ class LottoResult {
 
   calculateStats() {
     this.#lottos.forEach((lotto) => {
-      const result = this.#winningLotto.compare(lotto);
-      const rankKey = this.#determineRank(result);
+      const matchCount = lotto.countMatch(this.#winningLotto);
+      const hasBonus = lotto.includes(this.#winningLotto.getBonusNumber());
+
+      const rankKey = this.#determineRank({ matchCount, hasBonus });
       this.#stats[rankKey] += 1;
     });
 
