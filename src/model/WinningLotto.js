@@ -1,4 +1,4 @@
-import { ERROR } from "../constants/Messages";
+import { ERROR } from "../constants/Messages.js";
 
 class WinningLotto {
   #numbers;
