@@ -1,4 +1,4 @@
-import LottoResult from "../src/model/LottoResult.js";
+import LottoResult from "../../src/model/LottoResult.js";
 
 const mockLottoTicket = (matchCount, hasBonus) => ({
   countMatch: jest.fn().mockReturnValue(matchCount),

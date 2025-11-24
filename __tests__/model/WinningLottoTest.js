@@ -1,5 +1,5 @@
-import WinningLotto from "../src/model/WinningLotto.js";
-import { ERROR } from "../src/constants/Messages.js";
+import WinningLotto from "../../src/model/WinningLotto.js";
+import { ERROR } from "../../src/constants/Messages.js";
 
 describe("WinningLotto 클래스 테스트", () => {
   const validWinningNumbers = [1, 2, 3, 4, 5, 6];

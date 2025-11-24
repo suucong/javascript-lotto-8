@@ -1,6 +1,6 @@
-import LottoService from "../src/service/LottoService.js";
-import { LOTTO } from "../src/constants/LottoConstants.js";
-import Lotto from "../src/model/Lotto.js";
+import LottoService from "../../src/service/LottoService.js";
+import { LOTTO } from "../../src/constants/LottoConstants.js";
+import Lotto from "../../src/model/Lotto.js";
 
 describe("LottoService 로또 발행 기능 테스트", () => {
   let lottoService;
