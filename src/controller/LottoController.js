@@ -12,7 +12,8 @@ import LottoResult from "../model/LottoResult.js";
 class LottoController {
   async run() {
     let purchaseAmount = await this.#readPurchaseAmountWithRetry();
-    let lottos = this.#generateAndPrintLottos(purchaseAmount);
+    let lottos = this.#generateLottos(purchaseAmount);
+    this.#printLottos(lottos);
     let winningNumbers = await this.#readWinningNumbersWithRetry();
     let bonusNumber = await this.#readBonusNumberWithRetry(winningNumbers);
 
@@ -40,11 +41,12 @@ class LottoController {
   }
 
   // 입력 받은 구매 금액만큼 로또 발행
-  #generateAndPrintLottos(purchaseAmount) {
-    const lottos = LottoService.generateLottos(purchaseAmount);
+  #generateLottos(purchaseAmount) {
+    return LottoService.generateLottos(purchaseAmount);
+  }
 
+  #printLottos(lottos) {
     OutputView.printLottos(lottos);
-    return lottos;
   }
 
   // 당첨 번호 입력 받기
